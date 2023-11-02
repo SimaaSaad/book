@@ -4,6 +4,8 @@ const Book=require("../models/Book")
 
 const fetchBooks =(req,res)=>{
     Book.find()
+      .populate("author")
+      .populate("categories")
       .then((books) =>
         res.status(200).json({
           model: books,
@@ -19,6 +21,8 @@ const fetchBooks =(req,res)=>{
       });}
 const getBookById=(req,res)=>{
     Book.findOne({_id:req.params.id})
+    .populate("author")
+    .populate("categories")
     .then((books) => {
       if(!books){
         res.status(404).json({
